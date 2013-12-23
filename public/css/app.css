@@ -1,0 +1,78 @@
+/* app css stylesheet */
+
+body {
+  padding: 20px;
+}
+
+h3 {
+  color: #00aaff;
+}
+
+.container {
+  max-width: 700px;
+  float: left;
+}
+
+.chart-container {
+  /*margin-top: -50px;*/
+  width: 500px;
+  height: 500px;
+  float: left;
+}
+
+.user-container {
+  width: 500px;
+  height: 300px;
+  float: left;
+  text-align: center;
+  max-height: 300px;
+}
+
+.user-container ul{
+  float: left;
+  list-style-type: none;
+  max-width: 200px;
+  max-height: 200px;
+}
+
+.user-container li{
+  float: left;
+}
+
+table {
+  font-size: 16px;
+}
+
+thead {
+  font-weight: bolder;
+  color: #888;
+  font-size: 18px;
+}
+
+#chart {
+	width: 550px;
+	height: 550px;
+}
+
+.question {
+  font-size: 22px;
+  color: #888;
+  margin-bottom: 30px;
+}
+
+.dates{
+  border-collapse:collapse;
+  border-spacing: 0px;
+  width: 100px;
+
+}
+
+.btn-list{
+  padding: 2px;
+  margin: 2px;
+  text-align: left;
+}
+
+.btn-list button{
+  width: 80px;
+}

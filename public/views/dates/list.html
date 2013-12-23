@@ -1,0 +1,47 @@
+<div class="container">
+
+	<div class="page-header">
+		<h3>Vote - Shihu's Reunion Party</h3>
+	</div>
+
+	<p class="question">When should we hold our reunion party?</p>
+
+	<table class="table table-striped">
+		<thead>
+			<tr>
+				<td>Dates</td>
+				<td>Shihus</td>
+				<td>Votes</td>
+			</tr>
+		</thead>
+		<!-- ng-repeat directive for-loop a collection, {{}} means angular binding, only "local variable needs binding"; 
+		 Scope varialbe doesn't need this binding sign-->
+		<tr ng-repeat="rDate in dates">
+			<td class="dates">{{rDate.rDate}}</td>
+			<td><img ng-repeat="imgUrl in rDate.imgs" ng-src="{{imgUrl}}" style="float: left; height: 50px; width: 50px; vertical-align: baseline; margin: 0px 3px 3px 0px"/></td>
+			<td>{{rDate.votes}}</td>
+			<td><input class="btn btn-small btn-primary" type="submit" value="{{rDate.voteFlag}}" ng-click="vote(rDate)"></input></td>
+		</tr>
+	</table>
+
+</div>
+
+
+
+<div class="chart-container">
+	<!-- This is the angular directive! In real HTML, there is no chart tag! -->
+	<chart></chart>
+	<div class="user-container">
+	<ul>
+		<!-- this bug also traps me for quite a while -- ng-click doesn't work inside ng-repeat, scope problem --had better be good at finding problem -->
+		<!-- ng- directive: don't need {{}}, others needs -->
+	<li class="btn-list" ng-repeat="user in users"><button class="btn btn-primary" type="button" value="{{user.name}}"  ng-click="setUser(user)" ng-disabled="getStatus(user)">{{user.name}}</button></li>
+	</ul>
+	<button class="btn btn-primary" type="button" value="Overview" ng-click="overview()">Overview</button>
+
+</div>
+</div>
+
+
+
+
