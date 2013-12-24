@@ -19,7 +19,7 @@ module.exports = {
     }
   },  
   production: {
-    db: 'mongodb://test:test@widmore.mongohq.com:10000/vote-express',
+    db: 'mongodb://test:test@paulo.mongohq.com:10049/MyVote',
     root: rootPath,
     app: {
       name: 'Vote PROD'

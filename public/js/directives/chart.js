@@ -10,10 +10,7 @@ angular.module('voteApp')
         scope.$watch('dates', function(newValue, oldValue, scope) {
 
           if (newValue === undefined) return;
-          // var chartTeams = newValue.map(function(team) {
-          //   return [team.name, team.votes];
-          // });
-        // var data = google.visualization.arrayToDataTable(chartTeams, true);
+          
           var chartDates = newValue.map(function(reunionDate) {
             return [reunionDate.rDate, reunionDate.votes];
           });
@@ -23,7 +20,6 @@ angular.module('voteApp')
           googleChart.draw(data);
         //third parameter true -- enable dirty deep check!!
         }, true);
-
       }
 
     };

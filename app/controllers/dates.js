@@ -37,10 +37,6 @@ exports.list = function(req, res) {
 */
 }
 
-exports.review = function(req, res) {
-	var reunionDate = req.body;
-	res.json(reunionDate);
-}
 
 
 //This function is called because of the routes configuration!
