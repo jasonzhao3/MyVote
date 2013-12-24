@@ -38,7 +38,6 @@ exports.list = function(req, res) {
 }
 
 
-
 //This function is called because of the routes configuration!
 exports.update = function(req, res){
 	var reunionDate = new Dates(req.body);

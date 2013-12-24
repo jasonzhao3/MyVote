@@ -13,41 +13,57 @@ angular.module('voteApp')
       //need update every scope variable used in the view
        $scope.dates = data.dates;
        $scope.users = data.users;
+       $scope.disableFlag = true;
+     //Hacky part: add one more field in the database. There should be a better way to do this!
+      for (var i = 0; i < $scope.dates.length; i++) {
+        $scope.dates[i].voteFlag = "vote";
+      }
+
+      for (var i = 0; i < $scope.users.length; i++) {
+        $scope.users[i].status = false;
+      }
+
+       $("select[name='user-select'] option").each(function(){
+        if ($(this).text() == "Choose User") {
+          $(this).prop("selected",true);
+        } else {
+          $(this).removeAttr("selected");
+        }
+      });
     });
 
-    $scope.setUser = function(currUser) {
-      var name = currUser.name;      
-      $scope.currUser = currUser;
+    $scope.setUser = function() {
+       var currVal = $("select[name='user-select'] option:selected").val();
+       if (currVal == "") {
+        //quite hacky here
+         $("input[type='submit']").attr('disabled', 'true');
+         return;
+       }
       
-      $http.get('/dates').success(function(data) {
-        for (var i = 0; i < data.dates.length; i++) {
-          if (data.dates[i].imgs.indexOf($scope.currUser.imgUrl) > -1) {
-            data.dates[i].voteFlag = "Unvote";
+      $scope.currUser = JSON.parse($("select[name='user-select'] option:selected").val());
+   
+      //can also use $scope.currUser = JSON.parse($scope.currUser);
+      for (var i = 0; i < $scope.dates.length; i++) {
+          if ($scope.dates[i].imgs.indexOf($scope.currUser.imgUrl) > -1) {
+            $scope.dates[i].voteFlag = "Unvote";
           } else{
-            data.dates[i].voteFlag = "Vote";
+            $scope.dates[i].voteFlag = "Vote";
           }
-        }
+      }
 
-        for (var i = 0; i < data.users.length; i++) {
-          if (data.users[i].name != $scope.currUser.name && data.users[i].name != "undefined") {
-            data.users[i].status = "false";
-          } else {
-            data.users[i].status = "true";
-          }
+      for (var i = 0; i < $scope.users.length; i++) {
+        if ($scope.users[i].name == $scope.currUser.name) {
+          $scope.users[i].status = true;
+        } else {
+          $scope.users[i].status = false;
         }
-
-        $scope.dates = data.dates;
-        $scope.users = data.users;
-      });
+      }
+      $("input[type='submit']").removeAttr('disabled');
     }
 
-    // $scope.setUser = function() {
-    //   $("select[name='user-select'] option:selected").val();
-    // }
 
     $scope.overview = function() {
       $scope.currUser = "empty";
-      $('button').removeAttr('disabled');
       $("input[type='submit']").attr('disabled', 'true');
     }
 
@@ -73,16 +89,20 @@ angular.module('voteApp')
       });
     };
 
-
     Socket.on('date:updated', function (reunionDate) {
        for (var i = 0; i < $scope.dates.length; i++) {
           if ($scope.dates[i].rDate == reunionDate.rDate) {
             $scope.dates[i].voteFlag = reunionDate.voteFlag;
           }
         }
-      $.pnotify({title: 'Vote', text: $scope.currUser.name + ' ' + reunionDate.voteFlag + ' for ' + reunionDate.rDate });
+
+        var isVote = " Vote ";
+        if (reunionDate.voteFlag == "Vote") isVote = " Unvote ";
+
+      $.pnotify({title: 'Vote', text: $scope.currUser.name  + isVote + 'for ' + reunionDate.rDate });
     });
 
+  $("input[type='submit']").attr('disabled', 'true');
 
   });
 
@@ -91,4 +111,4 @@ angular.module('voteApp')
  * 1. evaluate variable inside string => eval!!!  e.g.  eval("$('button[value!=" + name + "]').attr('disabled', 'true');");
  * 2. remove diabled attribute from the button: e.g. $("button[value='Overview']").removeAttr('disabled');
  */
-
+ 

@@ -14,7 +14,7 @@ var DateSchema = new Schema({
 var UserSchema = new Schema({
 	name: String,
 	imgUrl: String,
-	status: {type: String, default: "true"}
+	status: {type: String, default: "false"}
 	//TODO: add relation between two collections
 });
 

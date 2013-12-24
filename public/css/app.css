@@ -22,22 +22,11 @@ h3 {
 
 .user-container {
   width: 500px;
-  height: 300px;
+  height: 100px;
   float: left;
   text-align: center;
-  max-height: 300px;
 }
 
-.user-container ul{
-  float: left;
-  list-style-type: none;
-  max-width: 200px;
-  max-height: 200px;
-}
-
-.user-container li{
-  float: left;
-}
 
 table {
   font-size: 16px;
@@ -75,4 +64,8 @@ thead {
 
 .btn-list button{
   width: 80px;
+}
+
+.custom-btn{
+  width: 90px !important;
 }
