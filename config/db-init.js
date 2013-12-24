@@ -12,7 +12,7 @@ module.exports = function () {
 	var day1 = new Dates(
 	{
 		code: 'option1',
-		rDate: 'Dec-24 Noon',
+		rDate: 'Dec-28 Noon',
 		names: [],
 		//default absolute path starts in public
 		imgs: [], 
@@ -23,7 +23,7 @@ module.exports = function () {
 	var day2 = new Dates(
 	{
 		code: 'option2',
-		rDate: 'Dec-24 Night',
+		rDate: 'Dec-28 Night',
 		names: [],
 		imgs: [],
 		vote: 0

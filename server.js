@@ -22,7 +22,7 @@ var express = require('express')
 
 // Load configurations
 // if test env, load example file
-var env = process.env.NODE_ENV || 'development'
+var env = process.env.NODE_ENV || 'test'
   , config = require('./config/config')[env]
   , mongoose = require('mongoose')
 
@@ -37,7 +37,7 @@ fs.readdirSync(models_path).forEach(function (file) {
 })
 
 //directly call the initialization function
-// require('./config/db-init')()
+require('./config/db-init')()
 
 
 var app = express()
