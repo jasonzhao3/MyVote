@@ -72,6 +72,7 @@ angular.module('voteApp')
         console.log($scope.currUser.name);
         reunionDate.imgs.push($scope.currUser.imgUrl);
         reunionDate.names.push($scope.currUser.name);
+        reunionDate.voteFlag = "Unvote";
         console.log(reunionDate);
       } else{
         reunionDate.votes = reunionDate.votes - 1;
@@ -79,6 +80,7 @@ angular.module('voteApp')
         reunionDate.imgs.splice(index, 1);
         index = reunionDate.imgs.indexOf($scope.currUser.name);
         reunionDate.names.splice(index, 1);
+        reunionDate.voteFlag = "Vote";
       }
 
       //update database is not here!!! it's in the backend node.js!!
@@ -94,32 +96,10 @@ angular.module('voteApp')
     };
 
 
-    Socket.on('date:updated', function (reunionDate) {
-      // eval("$('button[value!=" + $scope.currUser.name + "]').attr('disabled', 'true');");
-      // $("button[value='Overview']").removeAttr('disabled');
-      $http.get('/dates').success(function(data) {
-        console.log(data);
-        console.log("this happens second???")
-        for (var i = 0; i < data.dates.length; i++) {
-          if (data.dates[i].imgs.indexOf($scope.currUser.imgUrl) > -1) {
-            data.dates[i].voteFlag = "Unvote";
-          } else{
-            data.dates[i].voteFlag = "Vote";
-          }
-        }
-        $scope.dates = data.dates;
-        $scope.users = data.users;
-      });
-      console.log("this happens first???");
-      $.pnotify({title: 'Vote', text: $scope.currUser.name + ' vote for ' + reunionDate.rDate });
-      //cannot put before $http.get, otherwise the chart won't update
-     
-    });
-
     // Socket.on('date:updated', function (reunionDate) {
     //   // eval("$('button[value!=" + $scope.currUser.name + "]').attr('disabled', 'true');");
     //   // $("button[value='Overview']").removeAttr('disabled');
-    //   $http.put('/dates/review', data).success(function(data) {
+    //   $http.get('/dates').success(function(data) {
     //     console.log(data);
     //     console.log("this happens second???")
     //     for (var i = 0; i < data.dates.length; i++) {
@@ -137,6 +117,25 @@ angular.module('voteApp')
     //   //cannot put before $http.get, otherwise the chart won't update
      
     // });
+
+    Socket.on('date:updated', function (reunionDate) {
+      // $http.put('/dates/review', reunionDate).success(function(data) {
+      //   for (var i = 0; i < $scope.dates.length; i++) {
+      //     if ($scope.dates[i].rDate == reunionDate.rDate) {
+      //       $scope.dates[i].voteFlag = reunionDate.voteFlag;
+      //     }
+      //   }
+      // });
+
+       for (var i = 0; i < $scope.dates.length; i++) {
+          if ($scope.dates[i].rDate == reunionDate.rDate) {
+            $scope.dates[i].voteFlag = reunionDate.voteFlag;
+          }
+        }
+      $.pnotify({title: 'Vote', text: $scope.currUser.name + ' ' + reunionDate.voteFlag + ' for ' + reunionDate.rDate });
+      //cannot put before $http.get, otherwise the chart won't update
+     
+    });
 
 
   });

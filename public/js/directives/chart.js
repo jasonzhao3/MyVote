@@ -21,8 +21,8 @@ angular.module('voteApp')
       
           var googleChart = new google.visualization.PieChart(document.getElementById('chart'));
           googleChart.draw(data);
-
-        });
+        //third parameter true -- enable dirty deep check!!
+        }, true);
 
       }
 

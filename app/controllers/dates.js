@@ -38,8 +38,8 @@ exports.list = function(req, res) {
 }
 
 exports.review = function(req, res) {
-	var data = req.body;
-	res.json({dates: data.dates, users: data.users});
+	var reunionDate = req.body;
+	res.json(reunionDate);
 }
 
 
@@ -47,18 +47,11 @@ exports.review = function(req, res) {
 exports.update = function(req, res){
 	var reunionDate = new Dates(req.body);
 	//can only have one set
-	Dates.findOneAndUpdate({ _id: reunionDate.id }, {$set:{imgs:reunionDate.imgs, names: reunionDate.names}, votes: reunionDate.votes},  function (err, numberAffected, raw) {
+	Dates.findOneAndUpdate({ _id: reunionDate.id }, {$set:{imgs:reunionDate.imgs, names: reunionDate.names}, votes: reunionDate.votes, voteFlag: reunionDate.voteFlag},  function (err, numberAffected, raw) {
 		var socketIO = global.socketIO; 
 		socketIO.sockets.emit('date:updated', reunionDate);
 		res.json(true);
 
 	});
-	
-	// console.log(reunionDate);
-	// Dates.findOneAndUpdate({ _id: reunionDate.id }, {votes: reunionDate.votes}, {imgs: reunionDate.imgs}, {names :reunionDate.names}, function (err, numberAffected, raw) {
-	// 	var socketIO = global.socketIO; 
-	// 	socketIO.sockets.emit('date:updated', reunionDate);
-	// 	res.json(true);
-	// });
 }
 
