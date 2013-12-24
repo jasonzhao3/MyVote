@@ -37,8 +37,7 @@ fs.readdirSync(models_path).forEach(function (file) {
 })
 
 //directly call the initialization function
-// require('./config/db-fixture')()
-require('./config/db-init')()
+// require('./config/db-init')()
 
 
 var app = express()
