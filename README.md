@@ -2,12 +2,16 @@
 ## Description
 
 This is a demo application that integrates node.js, express, mongoose and angular.js to develop a simple vote application.
+Reference: voteExpress https://github.com/jlmonteagudo/voteExpress
 
 =======
 MyVote
 ======
 
-My first nodejs web application
+My first nodejs web application: based on voteExpress example, add
+1. User information (thumb-image)
+2. Real-time User vote presentation (User-vote association)
+3. Vote and Unvote functionality (only one vote per user)
 
 
 TODO:
